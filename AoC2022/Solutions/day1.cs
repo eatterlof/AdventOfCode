@@ -10,7 +10,7 @@ namespace AoC22.Solutions
     {
         public static void SolveFirst()
         {
-            var inputRows = File.ReadAllLines("C:\\mvs\\adventOfCode2022\\AoC22\\Inputs\\1.txt");
+            var inputRows = File.ReadAllLines(@"../../../Inputs/1.txt");
 
             int highestFood = 0;
             int currentElfFood = 0;
@@ -36,7 +36,7 @@ namespace AoC22.Solutions
 
         public static void SolveSecond()
         {
-            var inputRows = File.ReadAllLines("C:\\mvs\\adventOfCode2022\\AoC22\\Inputs\\1.txt");
+            var inputRows = File.ReadAllLines(@"../../../Inputs/1.txt");
 
             int highestFood = 0;
             int secondHighestFood = 0;
