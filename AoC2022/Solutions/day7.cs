@@ -43,12 +43,12 @@ namespace AoC2022.Solutions
                     {
                         ChangeDirectory(commands[2]);
                     }
-
+                    if (commands[1] == "ls")
+                    {
+                        listCurrentDirectory = true;
+                    }
                 }
-                if (commands[0] == "ls")
-                {
-                    listCurrentDirectory = true;
-                }
+                
 
                 if (commands[0] == "dir")
                 {
