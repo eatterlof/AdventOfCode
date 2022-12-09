@@ -60,8 +60,7 @@ namespace AoC2022.Solutions
 
                 if (characters.Count >= 14)
                 {
-                    var done = CheckIfRepeated(characters);
-                    if (done)
+                    if (CheckIfRepeated(characters))
                     {
                         Console.WriteLine(counter + 1);
                         return;
