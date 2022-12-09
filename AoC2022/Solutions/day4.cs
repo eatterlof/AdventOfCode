@@ -67,8 +67,6 @@ namespace AoC2022.Solutions
             var elf2Low = Int32.Parse(elf2[0]);
             var elf2High = Int32.Parse(elf2[1]);
 
-            //Console.WriteLine("Elf1Low: " + elf1Low.ToString() + "  Elf1High: " + elf1High + "  Elf2Low: " + elf2Low + " Elf2High: " + elf2High);
-
             if (elf1Low > elf2Low && elf1Low > elf2High)
                 return false;
 
