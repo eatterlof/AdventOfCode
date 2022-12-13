@@ -1,4 +1,4 @@
-﻿namespace AoC2022.Solutions
+namespace AoC2022.Solutions
 {
     public class day9
     {
@@ -7,7 +7,23 @@
         private static int Hx = 0;
         private static int Ty = 0;
         private static int Tx = 0;
-        private static List<(int,int)> visitedTailPositions = new List<(int, int)>() { (0,0) };
+        private static int T2y = 0;
+        private static int T2x = 0;
+        private static int T3y = 0;
+        private static int T3x = 0;
+        private static int T4y = 0;
+        private static int T4x = 0;
+        private static int T5y = 0;
+        private static int T5x = 0;
+        private static int T6y = 0;
+        private static int T6x = 0;
+        private static int T7y = 0;
+        private static int T7x = 0;
+        private static int T8y = 0;
+        private static int T8x = 0;
+        private static int T9y = 0;
+        private static int T9x = 0;
+        private static List<(int, int)> visitedTailPositions = new List<(int, int)>() { (0, 0) };
 
         public static void SolveFirst()
         {
@@ -24,7 +40,18 @@
 
         public static void SolveSecond()
         {
-            
+            foreach (var row in inputRows)
+            {
+                string[] instruction = row.Split(' ');
+                var direction = instruction[0];
+                var length = Int32.Parse(instruction[1]);
+
+                for (int i = 0; i < length; i++)
+                {
+                    MoveHead(direction);
+                    MoveTail(Hx, Hy, Tx, Ty);
+                }
+            }
         }
 
         private static void Move(string[] instruction)
@@ -138,6 +165,26 @@
                 }
             }
 
+
+        }
+
+        private static void MoveHead(string direction)
+        {
+
+            if (direction == "R") // Flytta höger
+                Hy++;
+
+            if (direction == "L") // Flytta vänster
+                Hy--;
+
+            if (direction == "U") // Flytta upp
+                Hx++;
+
+            if (direction == "D") // Flytta ner
+                Hx--;
+        }
+        private static void MoveTail(int x, int y)
+        {
 
         }
     }
