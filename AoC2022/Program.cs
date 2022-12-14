@@ -17,10 +17,10 @@ class Program
         //day5.SolveSecond();
         //day6.SolveFirst();
         //day6.SolveSecond();
-        //day7.SolveFirst();
+        day7.SolveFirst();
         //day8.SolveFirst();
         //day8.SolveSecond();
         //day9.SolveFirst();
-        day9.SolveSecond();
+        //day9.SolveSecond();
     }
 }
