@@ -10,6 +10,7 @@ namespace AoC2022.Solutions
 
         private static Directory currentDirectory = new Directory();
         private static bool listCurrentDirectory = false;
+        private static int fileSum = 0;
 
         public static void SolveFirst()
         {
@@ -49,7 +50,8 @@ namespace AoC2022.Solutions
                 }
             }
             var outermostDirectory = GetOutermostDirectory(currentDirectory);
-            Console.WriteLine(CalculateSum(outermostDirectory));
+            CalculateSum(outermostDirectory);
+            Console.WriteLine(fileSum);
         }
 
         public static void SolveSecond()
@@ -96,20 +98,34 @@ namespace AoC2022.Solutions
             return null;
         }
 
-        private static string CalculateSum(Directory outermostDirectory)
+        private static void CalculateSum(Directory directory)
         {
-            int sum = 0;
+            CalculateFilesInDirectory(directory);
+            int sumForDirectory = 0; // Skicka med denna i CalculateSum och lägg till alla i den här. Kolla sedan om den är under 100k och isf lägg till i tot?
+            if (directory.directories != null && directory.directories.Count > 0)
+                foreach (var dir in directory.directories)
+                {
+                    if (!dir.hasBeenCounted)
+                        CalculateSum(dir);
+                }
 
-            foreach (var file in outermostDirectory.files)
+        }
+
+        private static void CalculateFilesInDirectory(Directory directory)
+        {
+            var totFileSize = 0;
+            foreach (var file in directory.files)
             {
                 int filesize = file.Item1;
                 if (filesize <= 100000)
-                    sum += file.Item1;
+                    totFileSize += file.Item1;
             }
 
+            directory.directoryTotalFileSize = totFileSize;
+            directory.hasBeenCounted = true;
 
-
-            return sum.ToString();
+            if (totFileSize < 100000)
+                fileSum += totFileSize;
         }
     }
 
@@ -121,6 +137,9 @@ namespace AoC2022.Solutions
         public List<(int, string)> files;
         public List<Directory>? directories;
         public Directory? parentDirectory;
+        public bool hasBeenCounted = false;
+        public int directoryTotalFileSize = 0;
+        public int directoryAndChildrenTotalFileSize = 0;
 
         public Directory()
         {
@@ -156,6 +175,6 @@ namespace AoC2022.Solutions
             return directoryToStepInto;
         }
 
-        
+
     }
 }
