@@ -27,8 +27,23 @@ namespace AoC2022.Solutions
             Console.WriteLine(fileSum);
         }
 
+        private static List<(string, int)> allDirectorySizes = new List<(string, int)>();
+
         public static void SolveSecond()
         {
+            SetupDirectoryStructure();
+            var outermostDirectory = GetOutermostDirectory(currentDirectory);
+            CalculateSum(outermostDirectory);
+            CalculateFilesInDirectoryAndItsChildren(outermostDirectory);
+
+            var availableSpace = 70000000 - outermostDirectory.directoryAndChildrenTotalFileSize;
+            var smallestSizeToDelete = 30000000 - availableSpace;
+
+            allDirectorySizes.RemoveAll(x => x.Item2 < smallestSizeToDelete);
+            allDirectorySizes.OrderBy(x => x.Item2).ToList();
+
+            var directoryToDelete = allDirectorySizes.First();
+            Console.WriteLine(directoryToDelete.Item2);
         }
 
         private static void SetupDirectoryStructure()
@@ -160,7 +175,10 @@ namespace AoC2022.Solutions
             directory.hasBeenCountedWithChildren = true;
             if (directory.directoryAndChildrenTotalFileSize <= 100000)
                 directoriesToDelete.Add((directory.directoryName, directory.directoryAndChildrenTotalFileSize));
+
+            allDirectorySizes.Add((directory.directoryName, directory.directoryAndChildrenTotalFileSize));
         }
+
     }
 
     class Directory
