@@ -11,8 +11,27 @@ namespace AoC2022.Solutions
         private static Directory currentDirectory = new Directory();
         private static bool listCurrentDirectory = false;
         private static int fileSum = 0;
+        private static List<(string, int)> directoriesToDelete = new List<(string, int)>();
 
         public static void SolveFirst()
+        {
+            SetupDirectoryStructure();
+            var outermostDirectory = GetOutermostDirectory(currentDirectory);
+            CalculateSum(outermostDirectory);
+            CalculateFilesInDirectoryAndItsChildren(outermostDirectory);
+            
+            foreach (var dir in directoriesToDelete)
+            {
+                fileSum += dir.Item2;
+            }
+            Console.WriteLine(fileSum);
+        }
+
+        public static void SolveSecond()
+        {
+        }
+
+        private static void SetupDirectoryStructure()
         {
             foreach (var row in input)
             {
@@ -49,13 +68,6 @@ namespace AoC2022.Solutions
                     listCurrentDirectory = true;
                 }
             }
-            var outermostDirectory = GetOutermostDirectory(currentDirectory);
-            CalculateSum(outermostDirectory);
-            Console.WriteLine(fileSum);
-        }
-
-        public static void SolveSecond()
-        {
         }
         private static void UserCommand(string[] commands)
         {
@@ -94,42 +106,62 @@ namespace AoC2022.Solutions
             if (parentDirectory != null && parentDirectory.parentDirectory == null)
                 return parentDirectory;
 
-            GetOutermostDirectory(parentDirectory);
-            return null;
+            var test = GetOutermostDirectory(parentDirectory);
+            return test;
         }
 
         private static void CalculateSum(Directory directory)
         {
-            CalculateFilesInDirectory(directory);
-            int sumForDirectory = 0; // Skicka med denna i CalculateSum och lägg till alla i den här. Kolla sedan om den är under 100k och isf lägg till i tot?
             if (directory.directories != null && directory.directories.Count > 0)
                 foreach (var dir in directory.directories)
                 {
                     if (!dir.hasBeenCounted)
                         CalculateSum(dir);
-                }
 
+
+                }
+            SumFilesInDirectory(directory);
+
+            directory.hasBeenCounted = true;
         }
 
-        private static void CalculateFilesInDirectory(Directory directory)
+        private static void SumFilesInDirectory(Directory directory)
         {
             var totFileSize = 0;
             foreach (var file in directory.files)
             {
-                int filesize = file.Item1;
-                if (filesize <= 100000)
-                    totFileSize += file.Item1;
+                totFileSize += file.Item1;
             }
 
             directory.directoryTotalFileSize = totFileSize;
-            directory.hasBeenCounted = true;
+        }
 
-            if (totFileSize < 100000)
-                fileSum += totFileSize;
+        private static void CalculateFilesInDirectoryAndItsChildren(Directory directory)
+        {
+            if (directory.directories != null && directory.directories.Count > 0)
+                foreach (var dir in directory.directories)
+                {
+                    if (!dir.hasBeenCountedWithChildren)
+                        CalculateFilesInDirectoryAndItsChildren(dir);
+
+                }
+
+            var totalSize = 0;
+
+            if (directory.directories != null && directory.directories.Count > 0)
+                foreach (var dir in directory.directories)
+                {
+                    totalSize += dir.directoryAndChildrenTotalFileSize;
+                }
+
+            totalSize += directory.directoryTotalFileSize;
+
+            directory.directoryAndChildrenTotalFileSize = totalSize;
+            directory.hasBeenCountedWithChildren = true;
+            if (directory.directoryAndChildrenTotalFileSize <= 100000)
+                directoriesToDelete.Add((directory.directoryName, directory.directoryAndChildrenTotalFileSize));
         }
     }
-
-
 
     class Directory
     {
@@ -140,6 +172,7 @@ namespace AoC2022.Solutions
         public bool hasBeenCounted = false;
         public int directoryTotalFileSize = 0;
         public int directoryAndChildrenTotalFileSize = 0;
+        public bool hasBeenCountedWithChildren = false;
 
         public Directory()
         {
@@ -174,7 +207,6 @@ namespace AoC2022.Solutions
             var directoryToStepInto = currentDirectory.directories.First(d => d.directoryName == directoryNameToStepInto);
             return directoryToStepInto;
         }
-
 
     }
 }
