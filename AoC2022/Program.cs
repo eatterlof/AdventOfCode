@@ -22,6 +22,7 @@ class Program
         //day8.SolveSecond();
         //day9.SolveFirst();
         //day9.SolveSecond();
-        day10.SolveFirst();
+        //day10.SolveFirst();
+        day10.SolveSecond();
     }
 }
