@@ -16,8 +16,7 @@ namespace AoC2022.Solutions
         private static int inputNumber = 0;
         private static bool isExecuting = false;
         private static int totalSignalStrength = 0;
-
-
+        private static List<int> cyclesToCheck = new List<int>() { 20, 60, 100, 140, 180, 220 };
 
         public static void SolveFirst()
         {
@@ -56,7 +55,6 @@ namespace AoC2022.Solutions
             Console.WriteLine(totalSignalStrength);
         }
 
-        private static List<int> cyclesToCheck = new List<int>() { 20, 60, 100, 140, 180, 220 };
         private static string lineOne = "";
         private static string lineTwo = "";
         private static string lineThree = "";
@@ -74,8 +72,8 @@ namespace AoC2022.Solutions
 
                 if (isExecuting)
                 {
-                    Draw();
                     X += nextCycleAdd;
+                    Draw();
                     nextCycleAdd = 0;
                     isExecuting = false;
                     continue;
@@ -108,36 +106,34 @@ namespace AoC2022.Solutions
 
         private static void Draw()
         {
-            bool isInXRange = (cycleNumber == X || cycleNumber == X - 1 || cycleNumber == X + 1);
-
-            if (cycleNumber <= 40 && isInXRange)
+            if (cycleNumber <= 40 && (cycleNumber == X || cycleNumber == X - 1 || cycleNumber == X + 1))
                 lineOne = lineOne + "#";
-            if (cycleNumber <= 40 && !isInXRange)
+            if (cycleNumber <= 40 && !(cycleNumber == X || cycleNumber == X - 1 || cycleNumber == X + 1))
                 lineOne = lineOne + ".";
 
-            if (cycleNumber > 40 && cycleNumber <= 80 && isInXRange)
+            if (cycleNumber > 40 && cycleNumber <= 80 && (cycleNumber-40 == X || cycleNumber-40 == X - 1 || cycleNumber-40 == X + 1))
                 lineTwo = lineTwo + "#";
-            if (cycleNumber > 40 && cycleNumber <= 80 && !isInXRange)
+            if (cycleNumber > 40 && cycleNumber <= 80 && !(cycleNumber-40 == X || cycleNumber-40 == X - 1 || cycleNumber-40 == X + 1))
                 lineTwo = lineTwo + ".";
 
-            if (cycleNumber > 80 && cycleNumber <= 120 && isInXRange)
+            if (cycleNumber > 80 && cycleNumber <= 120 && (cycleNumber-80 == X || cycleNumber-80 == X - 1 || cycleNumber-80 == X + 1))
                 lineThree = lineThree + "#";
-            if (cycleNumber > 80 && cycleNumber <= 120 && !isInXRange)
+            if (cycleNumber > 80 && cycleNumber <= 120 && !(cycleNumber-80 == X || cycleNumber-80 == X - 1 || cycleNumber-80 == X + 1))
                 lineThree = lineThree + ".";
 
-            if (cycleNumber > 120 && cycleNumber <= 160 && isInXRange)
+            if (cycleNumber > 120 && cycleNumber <= 160 && (cycleNumber-120 == X || cycleNumber-120 == X - 1 || cycleNumber-120 == X + 1))
                 lineFour = lineFour + "#";
-            if (cycleNumber > 120 && cycleNumber <= 160 && !isInXRange)
+            if (cycleNumber > 120 && cycleNumber <= 160 && !(cycleNumber-120 == X || cycleNumber-120 == X - 1 || cycleNumber-120 == X + 1))
                 lineFour = lineFour + ".";
 
-            if (cycleNumber > 160 && cycleNumber <= 200 && isInXRange)
+            if (cycleNumber > 160 && cycleNumber <= 200 && (cycleNumber-160 == X || cycleNumber-160 == X - 1 || cycleNumber-160 == X + 1))
                 lineFive = lineFive + "#";
-            if (cycleNumber > 160 && cycleNumber <= 200 && !isInXRange)
+            if (cycleNumber > 160 && cycleNumber <= 200 && !(cycleNumber-160 == X || cycleNumber-160 == X - 1 || cycleNumber-160 == X + 1))
                 lineFive = lineFive + ".";
 
-            if (cycleNumber > 200 && cycleNumber <= 240 && isInXRange)
+            if (cycleNumber > 200 && cycleNumber <= 240 && (cycleNumber-200 == X || cycleNumber-200 == X - 1 || cycleNumber-200 == X + 1))
                 lineSix = lineSix + "#";
-            if (cycleNumber > 200 && cycleNumber <= 240 && !isInXRange)
+            if (cycleNumber > 200 && cycleNumber <= 240 && !(cycleNumber-200 == X || cycleNumber-200 == X - 1 || cycleNumber-200 == X + 1))
                 lineSix = lineSix + ".";
         }
 
