@@ -4,10 +4,10 @@ class Program
 {
     static public void Main(string[] args)
     {
-        day1.SolveFirst();
+        //day1.SolveFirst();
         //day1.SolveSecond();
         //day2.SolveFirst();
-        //day2.SolveSecond();
+        day2.SolveSecond();
         //day3.SolveFirst();
         //day3.SolveSecond();
         //day4.SolveFirst();
