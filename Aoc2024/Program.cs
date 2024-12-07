@@ -11,10 +11,10 @@ class Program
         //day3.SolveFirst();
         //day3.SolveSecond();
         //day4.SolveFirst();
-        day4.SolveSecond();
+        //day4.SolveSecond();
         //day5.SolveFirst();
         //day5.SolveSecond();
-        //day6.SolveFirst();
+        day6.SolveFirst();
         //day6.SolveSecond();
         //day7.SolveFirst();
         //day7.SolveSecond();
